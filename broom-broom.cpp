@@ -284,8 +284,9 @@ int main() {
 			return 0;
 		}
 		if (space++ < 20) {
-			for (int i = p->x + p->width; i < objs.size(); i++) {
-				if ((int)objs[i]->y == (int)p->y+1) {
+			for (int i = 0; i < objs.size(); i++) {
+				object* o = objs[i];
+				if ((int)o->y == (int)p->y+1 && o->x > p->x + p->width) {
 					objs.erase(objs.begin() + i);
 					i--;
 				}
