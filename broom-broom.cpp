@@ -58,7 +58,9 @@ class object {
 			for (int i = 0; i < height; i++) {
 				char* line = form[i];
 				for (int j = 0; j < width; j++) {
-					mvwaddch(stdscr, y + i, x + j, line[j]);
+					char c = line[j];
+					if (c != ' ')
+						mvwaddch(stdscr, y + i, x + j, line[j]);
 				}
 			}
 			return false;
@@ -86,10 +88,10 @@ class player : public object {
 			this->width = 6;
 			this->form = (char**)malloc(sizeof(char*)*3);
 			this->form[0] = (char*)malloc(4);
-			this->form[0][0] = '-';
+			this->form[0][0] = '|';
 			this->form[0][1] = '-';
-			this->form[0][2] = '-';
-			this->form[0][3] = ' ';
+			this->form[0][2] = '\\';
+			this->form[0][3] = '\\';
 			this->form[0][4] = ' ';
 			this->form[0][5] = ' ';
 			this->form[1] = (char*)malloc(4);
@@ -100,10 +102,10 @@ class player : public object {
 			this->form[1][4] = '-';
 			this->form[1][5] = '>';
 			this->form[2] = (char*)malloc(4);
-			this->form[2][0] = '-';
+			this->form[2][0] = '|';
 			this->form[2][1] = '-';
-			this->form[2][2] = '-';
-			this->form[2][3] = ' ';
+			this->form[2][2] = '/';
+			this->form[2][3] = '/';
 			this->form[2][4] = ' ';
 			this->form[2][5] = ' ';
 			this->x = 0;
