@@ -1,3 +1,3 @@
-all: broom-broom.cpp
-	g++ -o broom-broom broom-broom.cpp -lncursesw
+all: bird-up.cpp
+	g++ -o bird-up bird-up.cpp -lncurses
 

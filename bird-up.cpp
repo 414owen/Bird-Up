@@ -19,7 +19,7 @@ int _height, _width;
 
 class object {
 	public:
-		wchar_t** form;
+		char** form;
 		int width;
 		int height;
 		double x;
@@ -32,9 +32,9 @@ class object {
 		object() {
 			width = 1;
 			height = 1;
-			wchar_t* tmp = (wchar_t*) malloc(1);
+			char* tmp = (char*) malloc(1);
 			tmp[0] = '#';
-			form = (wchar_t**) malloc(sizeof(wchar_t*));
+			form = (char**) malloc(sizeof(char*));
 			form[0] = tmp;
 		}
 
@@ -53,11 +53,11 @@ class object {
 			}
 
 			for (int i = 0; i < height; i++) {
-				wchar_t* line = form[i];
+				char* line = form[i];
 				for (int j = 0; j < width; j++) {
-					wchar_t c = line[j];
+					char c = line[j];
 					if (c != ' ')
-						addwch(stdscr, y + i, x + j, line[j]);
+						mvaddch(y + i, x + j, line[j]);
 				}
 			}
 			return false;
@@ -82,24 +82,24 @@ class player : public object {
 		player() {
 			this->height = 3;
 			this->width = 6;
-			this->form = (wchar_t**)malloc(sizeof(wchar_t*)*3);
-			this->form[0] = (wchar_t*)malloc(4);
+			this->form = (char**)malloc(sizeof(char*)*3);
+			this->form[0] = (char*)malloc(4);
 			this->form[0][0] = '|';
-			this->form[0][1] = L'\u0250';
+			this->form[0][1] = '|';
 			this->form[0][2] = '\\';
 			this->form[0][3] = '\\';
 			this->form[0][4] = ' ';
 			this->form[0][5] = ' ';
-			this->form[1] = (wchar_t*)malloc(4);
+			this->form[1] = (char*)malloc(4);
 			this->form[1][0] = '-';
 			this->form[1][1] = '-';
 			this->form[1][2] = '-';
 			this->form[1][3] = '-';
 			this->form[1][4] = '-';
 			this->form[1][5] = '>';
-			this->form[2] = (wchar_t*)malloc(4);
+			this->form[2] = (char*)malloc(4);
 			this->form[2][0] = '|';
-			this->form[2][1] = L'\u0250';
+			this->form[2][1] = '|';
 			this->form[2][2] = '/';
 			this->form[2][3] = '/';
 			this->form[2][4] = ' ';
