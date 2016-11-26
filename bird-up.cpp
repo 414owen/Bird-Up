@@ -1,4 +1,5 @@
 #include <iostream>
+#include <clocale>
 #include <cmath>
 #include <ncurses.h>
 #include <unistd.h>
@@ -16,13 +17,9 @@ struct Player {
 Player* p = new Player();
 int _height, _width;
 
-//void draw() {
-//	mvwaddch(stdscr, p->y, p->x, 'p' | COLOR_RED);
-//}
-
 class object {
 	public:
-		char** form;
+		wchar_t** form;
 		int width;
 		int height;
 		double x;
@@ -35,9 +32,9 @@ class object {
 		object() {
 			width = 1;
 			height = 1;
-			char* tmp = (char*) malloc(1);
+			wchar_t* tmp = (wchar_t*) malloc(1);
 			tmp[0] = '#';
-			form = (char**) malloc(sizeof(char*));
+			form = (wchar_t**) malloc(sizeof(wchar_t*));
 			form[0] = tmp;
 		}
 
@@ -56,11 +53,11 @@ class object {
 			}
 
 			for (int i = 0; i < height; i++) {
-				char* line = form[i];
+				wchar_t* line = form[i];
 				for (int j = 0; j < width; j++) {
-					char c = line[j];
+					wchar_t c = line[j];
 					if (c != ' ')
-						mvwaddch(stdscr, y + i, x + j, line[j]);
+						addwch(stdscr, y + i, x + j, line[j]);
 				}
 			}
 			return false;
@@ -76,7 +73,6 @@ class asteroid: public object {
 			this->dy = dy;
 			this->ddy = ddy;
 			this->ddx = ddx;
-
 		}
 };
 
@@ -86,24 +82,24 @@ class player : public object {
 		player() {
 			this->height = 3;
 			this->width = 6;
-			this->form = (char**)malloc(sizeof(char*)*3);
-			this->form[0] = (char*)malloc(4);
+			this->form = (wchar_t**)malloc(sizeof(wchar_t*)*3);
+			this->form[0] = (wchar_t*)malloc(4);
 			this->form[0][0] = '|';
-			this->form[0][1] = '-';
+			this->form[0][1] = L'\u0250';
 			this->form[0][2] = '\\';
 			this->form[0][3] = '\\';
 			this->form[0][4] = ' ';
 			this->form[0][5] = ' ';
-			this->form[1] = (char*)malloc(4);
+			this->form[1] = (wchar_t*)malloc(4);
 			this->form[1][0] = '-';
 			this->form[1][1] = '-';
 			this->form[1][2] = '-';
 			this->form[1][3] = '-';
 			this->form[1][4] = '-';
 			this->form[1][5] = '>';
-			this->form[2] = (char*)malloc(4);
+			this->form[2] = (wchar_t*)malloc(4);
 			this->form[2][0] = '|';
-			this->form[2][1] = '-';
+			this->form[2][1] = L'\u0250';
 			this->form[2][2] = '/';
 			this->form[2][3] = '/';
 			this->form[2][4] = ' ';
@@ -198,6 +194,7 @@ class Landscape {
 };
 
 int main() {
+	setlocale(LC_ALL, "");
 	initscr();
 	// No buffering.
 	cbreak();

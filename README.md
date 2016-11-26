@@ -1,9 +1,9 @@
-# Broom-Broom-Imma-Spaceship
+# Bird Up
 
 This game was made in a three-hour hackathon by [oisincar](https://github.com/oisincar), [Zantier](https://github.com/Zantier), and myself.  
 It's impossible to win, and unsatisfying to lose.
 
-![screenshot dot bee em p](https://github.com/414owen/Broom-Broom-Imma-Spaceship/blob/master/screenshots/broom-broom.png)
+![screenshot dot bee em p](https://github.com/414owen/Bird-Up/blob/master/screenshots/bird-up.png)
 
 ## Dependencies
 
