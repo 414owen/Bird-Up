@@ -18,5 +18,5 @@ make
 ## To Run
 
 ```
-./broom-broom
+./bird-up
 ```
