@@ -17,6 +17,11 @@ struct Player {
 Player* p = new Player();
 int _height, _width;
 
+void exit_game() {
+	endwin();
+	exit(0);
+}
+
 class object {
 	public:
 		char** form;
@@ -271,7 +276,7 @@ int main() {
 		for (int i = 0; i < objs.size(); i++) {
 			object* o = objs[i];
 			if (o->x < p->x + p->width && o->x >= p->x && o->y < p->y + p->height && o->y >= p->y) {
-				return 0;
+				exit_game();
 			}
 			if (o->render()) {
 				objs.erase(objs.begin() + i);
@@ -280,7 +285,7 @@ int main() {
 		}
 
 		if (p->x < 0 || p->y < 0 || p->x + p->width > _width || p->y + p->height > _height) {
-			return 0;
+			exit_game();
 		}
 		if (space++ < 20) {
 			for (int i = 0; i < objs.size(); i++) {
@@ -300,3 +305,4 @@ int main() {
 		usleep(10000);
 	}
 }
+
