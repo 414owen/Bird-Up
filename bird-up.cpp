@@ -24,7 +24,7 @@ void exit_game() {
 
 class object {
 	public:
-        vector<string> form;
+		vector<string> form;
 		int width;
 		int height;
 		double x;
@@ -32,11 +32,11 @@ class object {
 		double dx;
 		double dy;
 
-        // object is removed if it touches any of these chars.
-        string collide_chars;
+		// object is removed if it touches any of these chars.
+		string collide_chars;
 
 		object() {
-            collide_chars = "^v.";
+			collide_chars = "^v.";
 			width = 1;
 			height = 1;
 		}
@@ -49,26 +49,26 @@ class object {
 		bool render() {
 			update();
 			// Whether to remove.
-		    if (x < 0 || y < 0 || x + width > _width || y + height > _height) {
+			if (x < 0 || y < 0 || x + width > _width || y + height > _height) {
 				return true;
 			}
 
-            int i = 0, j = 0;
-            for (string row : form){
-                for (char c : row){
-                    if (c != ' '){
-                        char del_c = mvinch(y + j, x + i);
+			int i = 0, j = 0;
+			for (string row : form){
+				for (char c : row){
+					if (c != ' '){
+						char del_c = mvinch(y + j, x + i);
 
-                        if (collide_chars.find(del_c) != string::npos){
-                            return true;
-                        }
+						if (collide_chars.find(del_c) != string::npos){
+							return true;
+						}
 
 						mvaddch(y + j, x + i, c);
-                    }
-                    i++;
-                }
-                i = 0; j++;
-            }
+					}
+					i++;
+				}
+				i = 0; j++;
+			}
 			return false;
 		}
 };
@@ -81,8 +81,8 @@ class asteroid: public object {
 			this->dx = dx;
 			this->dy = dy;
 
-            this->form.push_back("#");
-            collide_chars += "-";
+			this->form.push_back("#");
+			collide_chars += "-";
 		}
 };
 
@@ -93,16 +93,16 @@ class player : public object {
 			this->height = 3;
 			this->width = 6;
 
-            this->form.push_back("||\\\\");
-            this->form.push_back("----->");
-            this->form.push_back("||//");
+			this->form.push_back("||\\\\");
+			this->form.push_back("----->");
+			this->form.push_back("||//");
 
 			this->x = 0;
 			this->y = _height/2 - this->height/2;
 			this->dx = 0;
 			this->dy = 0;
 
-            collide_chars = ".^v#";
+			collide_chars = ".^v#";
 		}
 		void right() {
 			this->dx += change;
@@ -125,7 +125,7 @@ class Landscape {
 
 	public:
 		Landscape(bool isCeiling){
-            _isCeiling = isCeiling;
+			_isCeiling = isCeiling;
 
 			_points.push_back(make_pair(0,0));
 			for (int i = 0; i < _width * 10; i += 20){
@@ -169,10 +169,10 @@ class Landscape {
 					int currY = (slope * (x-p1.first)) + p1.second;
 
 					for (int y = 0; y <= currY; y++) {
-                        char c = '.';
-                        if (y == currY){
-                            c = _isCeiling ? 'v' : '^';
-                        }
+						char c = '.';
+						if (y == currY){
+							c = _isCeiling ? 'v' : '^';
+						}
 						if (_isCeiling) {
 							mvwaddch(stdscr, y, x+70, c);
 						} else {
@@ -257,13 +257,13 @@ int main() {
 		land_bot->render();
 
 		if (space++ < 20) {
-//			for (int i = 0; i < objs.size(); i++) {
-//				object* o = objs[i];
-//				if ((int)o->y == (int)p->y+1 && o->x > p->x + p->width) {
-//					objs.erase(objs.begin() + i);
-//					i--;
-//				}
-//			}
+			//			for (int i = 0; i < objs.size(); i++) {
+			//				object* o = objs[i];
+			//				if ((int)o->y == (int)p->y+1 && o->x > p->x + p->width) {
+			//					objs.erase(objs.begin() + i);
+			//					i--;
+			//				}
+			//			}
 			for (int i = p->x + p->width + (7 * space);i < p->x + p->width + (7 * space)+ 30; i++) {
 				mvwaddch(stdscr, p->y + 1, i, '-');
 			}
@@ -278,8 +278,8 @@ int main() {
 		}
 
 		if (p->render()){
-            exit_game();
-        }
+			exit_game();
+		}
 
 
 		wrefresh(stdscr);
